@@ -8,8 +8,8 @@ with open('README.md') as f:
 
 setup(
     name='sausagelink',
-    version='1.0.1',
-    description='Like BlockChain But Tastier™️',
+    version='1.1',
+    description='Like Blockchain But Tastier™️',
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
