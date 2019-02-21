@@ -1,8 +1,8 @@
-# sausagelink
+![](https://raw.githubusercontent.com/maxhumber/sausagelink/master/images/logo.png)
 
 ## About
 
-sausagelink is a like Blockchain, but tastier. The package allows you to maintain a Link (chain) of Sausages (blocks) such that the data contained within each Sausage cannot be tampered with.
+sausagelink is a like Blockchain, but tastier. The package allows you to maintain a `Link` (chain) of `Sausage` (blocks) such that the data contained within each `Sausage` cannot be tampered with.
 
 ## Usage is simple
 
