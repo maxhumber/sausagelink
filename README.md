@@ -1,2 +1,2 @@
 # sausagelink
-Like BlockChain but way more meaty
+Coming soon.
