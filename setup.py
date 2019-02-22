@@ -8,16 +8,19 @@ with open('README.md') as f:
 
 setup(
     name='sausagelink',
-    version='1.1.1',
+    version='1.2',
     description='Like Blockchain But Tastier™️',
     long_description=long_description,
     long_description_content_type="text/markdown",
     classifiers=[
+        'Development Status :: 5 - Production/Stable',
         'Intended Audience :: Developers',
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Programming Language :: Python :: 3.7'
+        'Topic :: Database',
+        'Topic :: Security',
+        'Topic :: Security :: Cryptography'
     ],
     url='https://github.com/maxhumber/sausagelink',
     author='Max Humber',

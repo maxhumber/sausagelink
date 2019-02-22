@@ -3,17 +3,17 @@ from hashlib import sha256
 from datetime import datetime
 
 class Sausage:
-    '''A block of data'''
+    '''A special, "tamper-proof" container for data'''
     def __init__(self, data=None, index=0, previous_sizzle=None):
         self.data = deepcopy(data)
         self.index = index
         self.previous_sizzle = previous_sizzle
         self.timestamp = datetime.now()
-        # A sizzle is what you get after you grill a sausage
+        # A grilled sausage is called a sizzle (｡◕‿‿◕｡)
         self.sizzle = self.grill()
 
     def grill(self):
-        '''Leverage the sha256 algorithm to hash the data block'''
+        '''Hash the entire object with sha256 (should match self.sizzle)'''
         sha = sha256()
         sha.update((
             str(self.data) +
@@ -21,30 +21,36 @@ class Sausage:
             str(self.previous_sizzle) +
             str(self.timestamp)
         ).encode('utf-8'))
-        # hexdigest will allow comparisons to the saved sizzle
         return sha.hexdigest()
 
     def rancid(self):
-        '''Checks to see if the hash is the same'''
+        '''Check if the result of self.grill() and self.sizzle are different.'''
         if self.grill() != self.sizzle:
-            # if the Sausage has been tampered with return True
             return True
         else:
             return False
 
     def __repr__(self):
+        # looks like sausage ☉ ‿ ⚆
         return f'⎨{self.index}⎬'
 
 class Link(list):
-    '''A container that extends the list type'''
+    '''A linked container for Sausages'''
     def __init__(self, nub=None):
         if not nub:
+            # create an empty Sausage to start the Link
             super().append(Sausage())
         else:
             super().append(nub)
 
+    def __getattribute__(self, attr):
+        # hide everything that isn't self.append()
+        if attr not in ['append']:
+            raise AttributeError(attr)
+        return super().__getattribute__(attr)
+
     def append(self, data):
-        '''Append data to a Link using a Sausage block'''
+        '''Stuff (arbitrary) data into a Sausage and add it to the Link'''
         last_sausage = self[-1]
         sausage = Sausage(
             data=data,
