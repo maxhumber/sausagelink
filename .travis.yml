@@ -1,5 +1,17 @@
+language: python
+
+python:
+  - "3.6"
+  - "3.7"
+
 deploy:
   provider: pypi
   user: maxhumber
   password:
     secure: JStYNLyWcBwAYoskql2AlTZTXiHFs1QBFaWYSpVQCXSAszbgmsCibNVoA/CYyhXi9D92jQvDUlqE6tnsGRCjOoeXA3rrOTnek9hGlL9zmRFtixQRF2fkPKfNv+GvBo9P/eyBrRuAMYOhbNafPVrbVyeXKlsbMajLfLwm6nwBvVaqVTLz5tdNPh6A1oaO1EpIM3j9dmaEg/B6sW3YafkTJ6fGh5nf7qVIBhiEyXO68//ldDushXA/1aMjfMQqGTOLL4kSghAMQJaAKvNnVX+dO4hM4qfGamGGtrzEl+P/ZZPReskGpHTGhVmOEmwB7bdinUJkaHLYx9ky1xNAZMqQjVWxrhFlxiQcHNpvbyU5pK26vV2+hJHXlWRDEg4g2ZvmOHzPA26Efwnwf9p6Rde6+HzxQVH1je2KBjNjZmzALSCrl5XLqHqbOjyxZ0i0cgSIB/74pomBcPujb6cp0D3454NtelmPy+63YCsptMFJzqGyBHEAEVvDLIwFnApu9hFkwSOu5xmD/iprQxvFb6cE8SrfF0oF7Aqb6Z4pdP2xRiEAPwvIRmaTj23NraAFg03isFLA7s0etdB7uS1gFukRqK2nG9JBq1im8JeHIK13WDj94AYzRSqMcLBBR1B9l7k3MaMBEHzw+5MIDMYEDrYSRLOxN7rClRy9ajyg9lcsSEE=
+
+install:
+  - pip install pytest
+
+script:
+  - pytest tests/
