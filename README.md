@@ -2,9 +2,9 @@
 
 ## About
 
-sausagelink is like Blockchain, but tastier. The package allows you to maintain a `Link` (chain) of `Sausage` (blocks) such that the data contained within each `Sausage` cannot be tampered with.
+sausagelink is like Blockchain, but tastier. The package allows you to maintain a `Link` (chain) of `Sausage` (blocks) such that the data contained within each `Sausage` and the order of the `Link` cannot be tampered with.
 
-## (sa)usage is simple ☉ ‿ ⚆
+## <sub>sa</sub>Usage is simple
 
 ```
 from sausagelink import Sausage, Link
