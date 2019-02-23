@@ -3,7 +3,7 @@ from hashlib import sha256
 from datetime import datetime
 
 class Sausage:
-    '''A special, "tamper-proof" container for data'''
+    '''A "tamper-proof" container for data'''
     def __init__(self, data=None, index=0, previous_sizzle=None):
         self.data = deepcopy(data)
         self.index = index
@@ -37,11 +37,11 @@ class Sausage:
 class Link(list):
     '''A linked container for Sausages'''
     def __init__(self, nub=None):
-        if not nub:
+        if isinstance(nub, Sausage):
+            super().append(nub)
+        else:
             # create an empty Sausage to start the Link
             super().append(Sausage())
-        else:
-            super().append(nub)
 
     def __getattribute__(self, attr):
         # hide everything that isn't self.append()
