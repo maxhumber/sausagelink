@@ -8,7 +8,7 @@ with open('README.md') as f:
 
 setup(
     name='sausagelink',
-    version='1.2',
+    version='1.2.{}'.format(os.environ.get('TRAVIS_BUILD_NUMBER', 0)),
     description='Like Blockchain But Tastier™️',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -21,6 +21,9 @@ setup(
         'Topic :: Database',
         'Topic :: Security',
         'Topic :: Security :: Cryptography'
+    ],
+    keywords=[
+        'blockchain', 'ledger', 'sha256'
     ],
     url='https://github.com/maxhumber/sausagelink',
     author='Max Humber',
