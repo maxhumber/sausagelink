@@ -1,6 +1,7 @@
 import pytest
 
 from sausagelink import Sausage, Link
+# from sausagelink import to_sl, read_sl
 
 def test_sausage():
     data = 'Hi!'
@@ -41,11 +42,24 @@ def test_dir():
     link.append({'bar': 'baz'})
     assert dir(link) == ['append']
 
-def test_broken_list_methods():
+def test_broken_list_pop():
     link = Link()
     with pytest.raises(AttributeError):
         link.pop()
+
+def test_broken_list_copy():
+    link = Link()
+    with pytest.raises(AttributeError):
+        link.copy()
 #
+# def test_to_and_read_sl():
+#     link = Link()
+#     link.append({'foo': 'bar'})
+#     link.append({'bar': 'baz'})
+#     to_sl(link, 'foo.sl')
+#     del link
+#     link = read_sl('foo.sl')
+
 # import pickle
 #
 # sausage = Sausage({'foo': 'bar'})
@@ -66,7 +80,7 @@ def test_broken_list_methods():
 # ###
 #
 # import pickle
-#
+# #
 # link = Link()
 # link.append({'foo': 'bar'})
 # link.append({'bar': 'baz'})

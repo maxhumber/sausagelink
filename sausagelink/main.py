@@ -1,6 +1,7 @@
 from copy import deepcopy
 from hashlib import sha256
 from datetime import datetime
+import pickle
 
 class Sausage:
     '''A "tamper-proof" container for data'''
@@ -45,14 +46,17 @@ class Link(list):
         else:
             super().append(Sausage(nub))
 
+    # https://stackoverflow.com/a/5827284/3731467
     def __getattribute__(self, attr):
         # break everything that isn't append or dunder
-        if (attr not in ['append']) and (not attr.startswith('__')):
+        if attr.startswith('__'):
+            return super().__getattribute__(attr)
+        elif attr in ['append']:
+            return super().__getattribute__(attr)
+        else:
             raise AttributeError(attr)
-        return super().__getattribute__(attr)
 
     def __dir__(self):
-        # only expose append (hide everything that's been broken intentionally)
         return ['append']
 
     def append(self, data):
@@ -64,3 +68,15 @@ class Link(list):
             previous_sizzle=last_sausage.sizzle
         )
         return super().append(sausage)
+#
+# def to_sl(sl, path):
+#     '''Write object to a pickle (sl) file'''
+#     with open(path, 'wb') as f:
+#         pickle.dump(sl, f)
+#     return path
+#
+# def read_sl(path):
+#     # like pandas.read_csv
+#     with open(path, 'rb') as f:
+#         sl = pickle.load(f)
+#     return sl
