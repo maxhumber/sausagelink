@@ -1,6 +1,7 @@
 import pytest
 
 from sausagelink import Sausage, Link
+from sausagelink import inspect
 # from sausagelink import to_sl, read_sl
 
 def test_sausage():
@@ -51,7 +52,17 @@ def test_broken_list_copy():
     link = Link()
     with pytest.raises(AttributeError):
         link.copy()
-#
+
+def test_inspect():
+    link = Link(0)
+    link.append(1)
+    link.append(2)
+    link.append(3)
+    link
+    assert inspect(link) == ['🌭']
+    link[2].data = 'I changed this'
+    assert inspect(link) != ['🌭']
+
 # def test_to_and_read_sl():
 #     link = Link()
 #     link.append({'foo': 'bar'})
@@ -78,6 +89,12 @@ def test_broken_list_copy():
 #
 #
 # ###
+#
+# mylist = [1, 2, 3]
+# list(mylist.__iter__())
+#
+# dir(mylist)
+
 #
 # import pickle
 # #

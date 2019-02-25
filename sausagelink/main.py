@@ -68,6 +68,17 @@ class Link(list):
             previous_sizzle=last_sausage.sizzle
         )
         return super().append(sausage)
+
+def inspect(link):
+    bad = []
+    for i in range(len(link)-1):
+        if not link[i].sizzle == link[i].grill() == link[i+1].previous_sizzle:
+            bad.append(f'Link cut between {link[i]} and {link[i+1]}')
+    if not bad:
+        return ['🌭']
+    else:
+        return bad
+        
 #
 # def to_sl(sl, path):
 #     '''Write object to a pickle (sl) file'''
