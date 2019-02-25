@@ -46,10 +46,14 @@ class Link(list):
             super().append(Sausage(nub))
 
     def __getattribute__(self, attr):
-        # hide everything that isn't self.append()
-        if attr not in ['append']:
+        # break everything that isn't append or dunder
+        if (attr not in ['append']) and (not attr.startswith('__')):
             raise AttributeError(attr)
         return super().__getattribute__(attr)
+
+    def __dir__(self):
+        # only expose append (hide everything that's been broken intentionally)
+        return ['append']
 
     def append(self, data):
         '''Stuff (arbitrary) data into a Sausage and add it to the Link'''
