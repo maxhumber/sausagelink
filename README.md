@@ -1,5 +1,5 @@
 <h3 align="center">
-  <img src="images/logo.png" width="704px" height="116px" alt="sausagelink">
+  <img src="https://raw.githubusercontent.com/maxhumber/sausagelink/master/images/logo.png" width="704px" height="116px" alt="sausagelink">
 </h3>
 
 <p align="center">
