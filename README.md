@@ -1,6 +1,6 @@
-<h1 align="center">
+<h3 align="center">
   <img src="images/logo.png" width="704px" height="116px" alt="sausagelink">
-</h1>
+</h3>
 
 <p align="center">
   <a href="https://pypi.python.org/pypi/sausagelink"><img src="https://badge.fury.io/py/sausagelink.svg"></a>
@@ -9,11 +9,11 @@
   <a href="https://pypi.python.org/pypi/sausagelink"><img src="https://img.shields.io/pypi/pyversions/sausagelink.svg"></a>
 </p>
 
-## About
+### About
 
 sausagelink is like Blockchain, but tastier. The package allows you to maintain a `Link` (chain) of `Sausage` (blocks) such that the data contained within each `Sausage` and the order of the `Link` cannot be tampered with.
 
-## <sub>sa</sub>Usage is simple
+### <sub>sa</sub>Usage is simple
 
 ```
 from sausagelink import Sausage, Link
@@ -36,6 +36,6 @@ print(sausage.rancid())
 # True
 ```
 
-## Install
+### Install
 
 `pip install sausagelink`
