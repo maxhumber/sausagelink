@@ -56,13 +56,9 @@ def test_broken_pop(link_of_sausages):
         link_of_sausages.pop()
 
 def test_link_dir(link_of_sausages):
-    assert dir(link_of_sausages) == ['append', 'refrigerate']
+    assert dir(link_of_sausages) == ['append', 'rancid', 'refrigerate']
 
-# # def test_inspect():
-# #     link = Link(0)
-# #     link.append(1)
-# #     link.append(2)
-# #     link.append(3)
-# #     assert link.inspect() == ['🌭']
-# #     link[2].data = 'I changed this'
-# #     assert link.inspect() != ['🌭']
+def test_link_rancid(link_of_sausages):
+    assert not link_of_sausages.rancid()
+    link_of_sausages[2].data = {'hot dog': 99, 'gyurma': 0, 'saucisson': 0}
+    assert link_of_sausages.rancid() == ['⎨2⎬']

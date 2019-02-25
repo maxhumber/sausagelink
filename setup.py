@@ -9,7 +9,7 @@ with open('README.md') as f:
 
 setup(
     name='sausagelink',
-    version='1.3.0',
+    version='1.5',
     description='Like Blockchain But Tastier™️',
     long_description=long_description,
     long_description_content_type="text/markdown",

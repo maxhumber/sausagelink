@@ -61,7 +61,7 @@ class Link(UserList):
 
     # expose only these methods to the user
     def __dir__(self):
-        return ['append', 'refrigerate']
+        return ['append', 'rancid', 'refrigerate']
 
     def append(self, data):
         '''Stuff (arbitrary) data into a Sausage and add it to the Link'''
@@ -73,6 +73,14 @@ class Link(UserList):
         )
         return super().append(sausage)
 
+    # TODO: rename to something better
+    def rancid(self):
+        bad = []
+        for i in range(len(self)-1):
+            if not self[i].sizzle == self[i].grill() == self[i+1].previous_sizzle:
+                bad.append(f'{self[i]}')
+        return bad
+
     def refrigerate(self, path):
         '''Perserve the Link for later consumption'''
         if not path.endswith('.sl'):
@@ -80,14 +88,3 @@ class Link(UserList):
         with open(path, 'wb') as f:
             pickle.dump(self, f)
         return path
-
-#     #TODO: change the name
-#     def inspect(self):
-#         bad = []
-#         for i in range(len(self)-1):
-#             if not self[i].sizzle == self[i].grill() == self[i+1].previous_sizzle:
-#                 bad.append(f'Link cut between {self[i]} and {self[i+1]}')
-#         if not bad:
-#             return ['🌭']
-#         else:
-#             return bad
