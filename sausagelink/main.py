@@ -51,13 +51,13 @@ class Link(list):
         # break everything that isn't append or dunder
         if attr.startswith('__'):
             return super().__getattribute__(attr)
-        elif attr in ['append']:
+        elif attr in ['append', 'inspect', 'to_sl']:
             return super().__getattribute__(attr)
         else:
             raise AttributeError(attr)
 
     def __dir__(self):
-        return ['append']
+        return ['append', 'inspect', 'to_sl']
 
     def append(self, data):
         '''Stuff (arbitrary) data into a Sausage and add it to the Link'''
@@ -69,22 +69,23 @@ class Link(list):
         )
         return super().append(sausage)
 
-def inspect(link):
-    bad = []
-    for i in range(len(link)-1):
-        if not link[i].sizzle == link[i].grill() == link[i+1].previous_sizzle:
-            bad.append(f'Link cut between {link[i]} and {link[i+1]}')
-    if not bad:
-        return ['🌭']
-    else:
-        return bad
-        
-#
-# def to_sl(sl, path):
-#     '''Write object to a pickle (sl) file'''
-#     with open(path, 'wb') as f:
-#         pickle.dump(sl, f)
-#     return path
+    #TODO: change the name
+    def inspect(self):
+        bad = []
+        for i in range(len(self)-1):
+            if not self[i].sizzle == self[i].grill() == self[i+1].previous_sizzle:
+                bad.append(f'Link cut between {self[i]} and {self[i+1]}')
+        if not bad:
+            return ['🌭']
+        else:
+            return bad
+
+    # not sold on this 
+    def to_sl(sl, path):
+        '''Write object to a pickle (sl) file'''
+        with open(path, 'wb') as f:
+            pickle.dump(sl, f)
+        return path
 #
 # def read_sl(path):
 #     # like pandas.read_csv

@@ -1,8 +1,6 @@
 import pytest
 
 from sausagelink import Sausage, Link
-from sausagelink import inspect
-# from sausagelink import to_sl, read_sl
 
 def test_sausage():
     data = 'Hi!'
@@ -41,7 +39,12 @@ def test_dir():
     link = Link()
     link.append({'foo': 'bar'})
     link.append({'bar': 'baz'})
-    assert dir(link) == ['append']
+    list_methods = [
+        method for method in dir([])
+        if not method.startswith('__')
+    ]
+    intersection = set(list_methods) & set(dir(link))
+    assert intersection == {'append'}
 
 def test_broken_list_pop():
     link = Link()
@@ -58,10 +61,16 @@ def test_inspect():
     link.append(1)
     link.append(2)
     link.append(3)
-    link
-    assert inspect(link) == ['🌭']
+    assert link.inspect() == ['🌭']
     link[2].data = 'I changed this'
-    assert inspect(link) != ['🌭']
+    assert link.inspect() != ['🌭']
+
+# def test_to_sl():
+#     link = Link(0)
+#     link.append(1)
+#     link.append(2)
+#     link.append(3)
+#     link.to_sl('foo.sl')
 
 # def test_to_and_read_sl():
 #     link = Link()
