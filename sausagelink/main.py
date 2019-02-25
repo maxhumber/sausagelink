@@ -3,6 +3,9 @@ from hashlib import sha256
 from datetime import datetime
 import pickle
 
+HIDE = [method for method in dir([]) if not method.startswith('__')]
+HIDE.remove('append')
+
 class Sausage:
     '''A "tamper-proof" container for data'''
     def __init__(self, data=None, index=0, previous_sizzle=None):
@@ -48,13 +51,10 @@ class Link(list):
 
     # https://stackoverflow.com/a/5827284/3731467
     def __getattribute__(self, attr):
-        # break everything that isn't append or dunder
-        if attr.startswith('__'):
-            return super().__getattribute__(attr)
-        elif attr in ['append', 'inspect', 'to_sl']:
-            return super().__getattribute__(attr)
-        else:
+        if attr in HIDE:
             raise AttributeError(attr)
+        else:
+            return super().__getattribute__(attr)
 
     def __dir__(self):
         return ['append', 'inspect', 'to_sl']
@@ -68,7 +68,7 @@ class Link(list):
             previous_sizzle=last_sausage.sizzle
         )
         return super().append(sausage)
-
+        
     #TODO: change the name
     def inspect(self):
         bad = []
@@ -80,7 +80,7 @@ class Link(list):
         else:
             return bad
 
-    # not sold on this 
+    # not sold on this
     def to_sl(sl, path):
         '''Write object to a pickle (sl) file'''
         with open(path, 'wb') as f:
