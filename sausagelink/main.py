@@ -39,9 +39,11 @@ class Link(list):
     def __init__(self, nub=None):
         if isinstance(nub, Sausage):
             super().append(nub)
-        else:
+        elif not nub:
             # create an empty Sausage to start the Link
             super().append(Sausage())
+        else:
+            super().append(Sausage(nub))
 
     def __getattribute__(self, attr):
         # hide everything that isn't self.append()

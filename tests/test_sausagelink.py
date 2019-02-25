@@ -18,3 +18,19 @@ def test_link():
     sausage = link[-1]
     assert isinstance(sausage, Sausage)
     assert link[0].sizzle == link[1].previous_sizzle
+
+def test_nub():
+    # nub is not a Sausage
+    nub = 'non-sausage'
+    link = Link(nub)
+    assert isinstance(link[0], Sausage)
+    assert isinstance(link[0].data, str)
+    # nub is a Sausage
+    nub = Sausage('sausage')
+    link = Link(nub)
+    assert isinstance(link[0], Sausage)
+    assert isinstance(link[0].data, str)
+    # no nub
+    link = Link()
+    assert isinstance(link[0], Sausage)
+    assert link[0].data is None
