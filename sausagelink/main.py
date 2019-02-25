@@ -1,7 +1,7 @@
 from copy import deepcopy
 from hashlib import sha256
 from datetime import datetime
-import pickle
+from collections import UserList
 
 BREAK = [method for method in dir([]) if not method.startswith('__')]
 BREAK.remove('append')
@@ -38,16 +38,15 @@ class Sausage:
         # looks like sausage ☉ ‿ ⚆
         return f'⎨{self.index}⎬'
 
-class Link(list):
+class Link(UserList):
     '''A linked container for Sausages'''
     def __init__(self, nub=None):
         if isinstance(nub, Sausage):
-            super().append(nub)
+            self.data = [nub]
         elif not nub:
-            # create an empty Sausage to start the Link
-            super().append(Sausage())
+            self.data = [Sausage()]
         else:
-            super().append(Sausage(nub))
+            self.data = [Sausage(nub)]
 
     # https://stackoverflow.com/a/5827284/3731467
     def __getattribute__(self, attr):
@@ -57,13 +56,13 @@ class Link(list):
             return super().__getattribute__(attr)
 
     def __dir__(self):
-        return ['append']
+        return ['append', 'data']
 
-    def append(self, data):
+    def append(self, item):
         '''Stuff (arbitrary) data into a Sausage and add it to the Link'''
         last_sausage = self[-1]
         sausage = Sausage(
-            data=data,
+            data=item,
             index=last_sausage.index + 1,
             previous_sizzle=last_sausage.sizzle
         )
