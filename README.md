@@ -1,4 +1,13 @@
-![](https://raw.githubusercontent.com/maxhumber/sausagelink/master/images/logo.png)
+<h1 align="center">
+  <img src="images/logo.png" width="704px" height="116px" alt="sausagelink">
+</h1>
+
+<p align="center">
+  <a href="https://pypi.python.org/pypi/sausagelink"><img src="https://badge.fury.io/py/sausagelink.svg"></a>
+  <a href="https://travis-ci.org/maxhumber/sausagelink"><img src="https://img.shields.io/travis/maxhumber/sausagelink.svg"></a>
+  <a href="http://unlicense.org/"><img src="https://img.shields.io/pypi/l/sausagelink.svg"></a>
+  <a href="https://pypi.python.org/pypi/sausagelink"><img src="https://img.shields.io/pypi/pyversions/sausagelink.svg"></a>
+</p>
 
 ## About
 
