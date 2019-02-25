@@ -9,7 +9,7 @@ with open('README.md') as f:
 
 setup(
     name='sausagelink',
-    version='1.3.{}'.format(os.environ.get('TRAVIS_BUILD_NUMBER', 0)),
+    version='1.3.0',
     description='Like Blockchain But Tastier™️',
     long_description=long_description,
     long_description_content_type="text/markdown",
