@@ -3,8 +3,8 @@ from hashlib import sha256
 from datetime import datetime
 import pickle
 
-HIDE = [method for method in dir([]) if not method.startswith('__')]
-HIDE.remove('append')
+BREAK = [method for method in dir([]) if not method.startswith('__')]
+BREAK.remove('append')
 
 class Sausage:
     '''A "tamper-proof" container for data'''
@@ -51,13 +51,13 @@ class Link(list):
 
     # https://stackoverflow.com/a/5827284/3731467
     def __getattribute__(self, attr):
-        if attr in HIDE:
+        if attr in BREAK:
             raise AttributeError(attr)
         else:
             return super().__getattribute__(attr)
 
     def __dir__(self):
-        return ['append', 'inspect', 'to_sl']
+        return ['append']
 
     def append(self, data):
         '''Stuff (arbitrary) data into a Sausage and add it to the Link'''
@@ -68,27 +68,27 @@ class Link(list):
             previous_sizzle=last_sausage.sizzle
         )
         return super().append(sausage)
-        
-    #TODO: change the name
-    def inspect(self):
-        bad = []
-        for i in range(len(self)-1):
-            if not self[i].sizzle == self[i].grill() == self[i+1].previous_sizzle:
-                bad.append(f'Link cut between {self[i]} and {self[i+1]}')
-        if not bad:
-            return ['🌭']
-        else:
-            return bad
 
-    # not sold on this
-    def to_sl(sl, path):
-        '''Write object to a pickle (sl) file'''
-        with open(path, 'wb') as f:
-            pickle.dump(sl, f)
-        return path
+#     #TODO: change the name
+#     def inspect(self):
+#         bad = []
+#         for i in range(len(self)-1):
+#             if not self[i].sizzle == self[i].grill() == self[i+1].previous_sizzle:
+#                 bad.append(f'Link cut between {self[i]} and {self[i+1]}')
+#         if not bad:
+#             return ['🌭']
+#         else:
+#             return bad
 #
-# def read_sl(path):
-#     # like pandas.read_csv
-#     with open(path, 'rb') as f:
-#         sl = pickle.load(f)
-#     return sl
+#     # not sold on this
+#     def to_sl(sl, path):
+#         '''Write object to a pickle (sl) file'''
+#         with open(path, 'wb') as f:
+#             pickle.dump(sl, f)
+#         return path
+# #
+# # def read_sl(path):
+# #     # like pandas.read_csv
+# #     with open(path, 'rb') as f:
+# #         sl = pickle.load(f)
+# #     return sl

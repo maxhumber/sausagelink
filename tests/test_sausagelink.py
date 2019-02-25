@@ -56,14 +56,14 @@ def test_broken_list_copy():
     with pytest.raises(AttributeError):
         link.copy()
 
-def test_inspect():
-    link = Link(0)
-    link.append(1)
-    link.append(2)
-    link.append(3)
-    assert link.inspect() == ['🌭']
-    link[2].data = 'I changed this'
-    assert link.inspect() != ['🌭']
+# def test_inspect():
+#     link = Link(0)
+#     link.append(1)
+#     link.append(2)
+#     link.append(3)
+#     assert link.inspect() == ['🌭']
+#     link[2].data = 'I changed this'
+#     assert link.inspect() != ['🌭']
 
 # def test_to_sl():
 #     link = Link(0)
