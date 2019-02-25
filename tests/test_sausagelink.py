@@ -1,122 +1,68 @@
 import pytest
-
 from sausagelink import Sausage, Link
+import os
 
-def test_sausage():
-    data = 'Hi!'
-    sausage = Sausage(data)
-    assert sausage.grill() == sausage.sizzle
-    assert not sausage.rancid()
-    sausage.data = 'Bye'
-    assert sausage.grill() != sausage.sizzle
-    assert sausage.rancid()
+@pytest.fixture
+def hot_dog():
+    sausage = Sausage({'type': 'hot dog', 'origin': 'USA'})
+    return sausage
 
-def test_link():
-    link = Link()
-    link.append('Yay!')
-    assert len(link) == 2
-    sausage = link[-1]
-    assert isinstance(sausage, Sausage)
-    assert link[0].sizzle == link[1].previous_sizzle
+@pytest.fixture
+def link_of_sausages():
+    link = Link({'hot dog': 0, 'gyurma': 0, 'merguez': 0})
+    link.append({'hot dog': 1, 'gyurma': 0, 'merguez': 0})
+    link.append({'hot dog': 2, 'gyurma': 0, 'merguez': 0})
+    link.append({'hot dog': 2, 'gyurma': 1, 'merguez': 0})
+    link.append({'hot dog': 2, 'gyurma': 1, 'merguez': 1})
+    return link
 
-def test_nub():
-    # nub is not a Sausage
-    nub = 'non-sausage'
-    link = Link(nub)
-    assert isinstance(link[0], Sausage)
-    assert isinstance(link[0].data, str)
-    # nub is a Sausage
-    nub = Sausage('sausage')
-    link = Link(nub)
-    assert isinstance(link[0], Sausage)
-    assert isinstance(link[0].data, str)
-    # no nub
+def test_hot_dog(hot_dog):
+    assert isinstance(hot_dog, Sausage)
+    assert hot_dog.grill() == hot_dog.sizzle
+
+def test_rancid(hot_dog):
+    hot_dog.data = {'type': 'hot dog', 'origin': 'Canada'}
+    assert hot_dog.rancid()
+
+def test_nub_no_data():
     link = Link()
     assert isinstance(link[0], Sausage)
     assert link[0].data is None
 
-def test_dir():
-    link = Link()
-    link.append({'foo': 'bar'})
-    link.append({'bar': 'baz'})
-    list_methods = [
-        method for method in dir([])
-        if not method.startswith('__')
-    ]
-    intersection = set(list_methods) & set(dir(link))
-    assert intersection == {'append'}
+def test_nub_data_not_sausage():
+    link = Link('non-sausage')
+    assert isinstance(link[0], Sausage)
+    assert isinstance(link[0].data, str)
 
-def test_broken_list_pop():
-    link = Link()
+def test_nub_sausage():
+    link = Link(Sausage('sausage'))
+    assert isinstance(link[0], Sausage)
+    assert isinstance(link[0].data, str)
+
+def test_link_of_sausages(link_of_sausages):
+    assert isinstance(link_of_sausages, Link)
+    assert len(link_of_sausages) == 5
+
+def test_refrigerate(link_of_sausages):
+    path = 'food.sl'
+    link_of_sausages.refrigerate(path)
+    del link_of_sausages
+    link_of_sausages = Link(path)
+    assert isinstance(link_of_sausages, Link)
+    os.remove(path)
+
+def test_broken_pop(link_of_sausages):
     with pytest.raises(AttributeError):
-        link.pop()
+        link_of_sausages.pop()
 
-def test_broken_list_copy():
-    link = Link()
-    with pytest.raises(AttributeError):
-        link.copy()
+def test_link_dir(link_of_sausages):
+    assert dir(link_of_sausages) == ['append', 'refrigerate']
 
-# def test_inspect():
-#     link = Link(0)
-#     link.append(1)
-#     link.append(2)
-#     link.append(3)
-#     assert link.inspect() == ['🌭']
-#     link[2].data = 'I changed this'
-#     assert link.inspect() != ['🌭']
-
-# def test_to_sl():
-#     link = Link(0)
-#     link.append(1)
-#     link.append(2)
-#     link.append(3)
-#     link.to_sl('foo.sl')
-
-# def test_to_and_read_sl():
-#     link = Link()
-#     link.append({'foo': 'bar'})
-#     link.append({'bar': 'baz'})
-#     to_sl(link, 'foo.sl')
-#     del link
-#     link = read_sl('foo.sl')
-
-# import pickle
-#
-# sausage = Sausage({'foo': 'bar'})
-# sausage.data
-#
-# with open('foo.sl', 'wb') as f:
-#     pickle.dump(sausage, f)
-#
-# del sausage
-#
-# with open('foo.sl', 'rb') as f:
-#     sausage = pickle.load(f)
-#
-# sausage
-# sausage.rancid()
-#
-#
-# ###
-#
-# mylist = [1, 2, 3]
-# list(mylist.__iter__())
-#
-# dir(mylist)
-
-#
-# import pickle
-# #
-# link = Link()
-# link.append({'foo': 'bar'})
-# link.append({'bar': 'baz'})
-# [sausage.data for sausage in link]
-#
-# with open('foo.sl', 'wb') as f:
-#     pickle.dump(link, f)
-#
-# del link
-#
-# with open('foo.sl', 'rb') as f:
-#     link = pickle.load(f)
-#
+# # def test_inspect():
+# #     link = Link(0)
+# #     link.append(1)
+# #     link.append(2)
+# #     link.append(3)
+# #     assert link.inspect() == ['🌭']
+# #     link[2].data = 'I changed this'
+# #     assert link.inspect() != ['🌭']

@@ -1,13 +1,14 @@
 from copy import deepcopy
-from hashlib import sha256
 from datetime import datetime
+from hashlib import sha256
 from collections import UserList
+import pickle
 
 BREAK = [method for method in dir([]) if not method.startswith('__')]
 BREAK.remove('append')
 
 class Sausage:
-    '''A "tamper-proof" container for data'''
+    '''A 'tamper-proof' container for data'''
     def __init__(self, data=None, index=0, previous_sizzle=None):
         self.data = deepcopy(data)
         self.index = index
@@ -40,13 +41,16 @@ class Sausage:
 
 class Link(UserList):
     '''A linked container for Sausages'''
-    def __init__(self, nub=None):
-        if isinstance(nub, Sausage):
-            self.data = [nub]
-        elif not nub:
+    def __init__(self, nub_or_path=None):
+        if isinstance(nub_or_path, str) and nub_or_path.endswith('.sl'):
+            with open(nub_or_path, 'rb') as f:
+                self.data = pickle.load(f).data
+        elif isinstance(nub_or_path, Sausage):
+            self.data = [nub_or_path]
+        elif not nub_or_path:
             self.data = [Sausage()]
         else:
-            self.data = [Sausage(nub)]
+            self.data = [Sausage(nub_or_path)]
 
     # https://stackoverflow.com/a/5827284/3731467
     def __getattribute__(self, attr):
@@ -55,18 +59,27 @@ class Link(UserList):
         else:
             return super().__getattribute__(attr)
 
+    # expose only these methods to the user
     def __dir__(self):
-        return ['append', 'data']
+        return ['append', 'refrigerate']
 
-    def append(self, item):
+    def append(self, data):
         '''Stuff (arbitrary) data into a Sausage and add it to the Link'''
         last_sausage = self[-1]
         sausage = Sausage(
-            data=item,
+            data=data,
             index=last_sausage.index + 1,
             previous_sizzle=last_sausage.sizzle
         )
         return super().append(sausage)
+
+    def refrigerate(self, path):
+        '''Perserve the Link for later consumption'''
+        if not path.endswith('.sl'):
+            path += '.sl'
+        with open(path, 'wb') as f:
+            pickle.dump(self, f)
+        return path
 
 #     #TODO: change the name
 #     def inspect(self):
@@ -78,16 +91,3 @@ class Link(UserList):
 #             return ['🌭']
 #         else:
 #             return bad
-#
-#     # not sold on this
-#     def to_sl(sl, path):
-#         '''Write object to a pickle (sl) file'''
-#         with open(path, 'wb') as f:
-#             pickle.dump(sl, f)
-#         return path
-# #
-# # def read_sl(path):
-# #     # like pandas.read_csv
-# #     with open(path, 'rb') as f:
-# #         sl = pickle.load(f)
-# #     return sl
