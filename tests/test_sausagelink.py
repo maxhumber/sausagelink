@@ -94,27 +94,3 @@ def test_broken_list_copy():
 # with open('foo.sl', 'rb') as f:
 #     link = pickle.load(f)
 #
-# link
-#
-# dir(link)
-#
-# # ['__class__',
-# #  '__dict__',
-# #  '__dir__',
-# #  '__doc__',
-# #  '__getattribute__',
-# #  '__getitem__',
-# #  '__init__',
-# #  '__iter__',
-# #  '__len__',
-# #  '__repr__',
-# #  '__setattr__',
-# #  '__setitem__',
-# #  '__sizeof__',
-# #  '__str__',
-# #  'append']
-
-
-
-
-#
