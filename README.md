@@ -2,11 +2,12 @@
   <img src="https://raw.githubusercontent.com/maxhumber/sausagelink/master/images/logo.png" width="704px" height="116px" alt="sausagelink">
 </h3>
 <p align="center">
-  <img alt="GitHub" src="https://img.shields.io/github/license/maxhumber/sausagelink.svg">
-  <img alt="Travis" src="https://img.shields.io/travis/maxhumber/sausagelink.svg">
-  <img alt="PyPI" src="https://img.shields.io/pypi/v/sausagelink.svg">
-  <img alt="Downloads" src="https://img.shields.io/pypi/dw/sausagelink.svg">
+  <a href="https://opensource.org/licenses/MIT"><img alt="MIT" src="https://img.shields.io/github/license/maxhumber/sausagelink.svg"></a>
+  <a href="https://travis-ci.org/maxhumber/sausagelink"><img alt="Travis" src="https://img.shields.io/travis/maxhumber/sausagelink.svg"></a>
+  <a href="https://pypi.python.org/pypi/sausagelink"><img alt="PyPI" src="https://img.shields.io/pypi/v/sausagelink.svg"></a>
+  <a href="https://pypi.python.org/pypi/sausagelink"><img alt="Downloads" src="https://img.shields.io/pypi/dw/sausagelink.svg"></a>
 </p>
+
 
 
 ### About
