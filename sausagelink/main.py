@@ -60,8 +60,7 @@ class Link(UserList):
             return super().__getattribute__(attr)
 
     # expose only these methods to the user
-    def __dir__(self):
-        return ['append', 'rancid', 'refrigerate']
+    def __dir__(self): return ['append', 'rancid', 'refrigerate']
 
     def append(self, data):
         '''Stuff (arbitrary) data into a Sausage and add it to the Link'''
@@ -73,12 +72,13 @@ class Link(UserList):
         )
         return super().append(sausage)
 
-    # TODO: rename to something better
     def rancid(self):
         bad = []
-        for i in range(len(self)-1):
-            if not self[i].sizzle == self[i].grill() == self[i+1].previous_sizzle:
-                bad.append(f'{self[i]}')
+        for i in range(len(self)):
+            if not self[i].sizzle == self[i].grill():
+                bad.append(self[i])
+            if (i > 0) and not (self[i].previous_sizzle == self[i-1].sizzle):
+                bad.append(self[i])
         return bad
 
     def refrigerate(self, path):

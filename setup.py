@@ -9,7 +9,7 @@ with open('README.md') as f:
 
 setup(
     name='sausagelink',
-    version='1.5.2',
+    version='1.5.3',
     description='Like Blockchain But Tastier™️',
     long_description=long_description,
     long_description_content_type="text/markdown",
@@ -19,8 +19,8 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
-        'Topic :: Database',
-        'Topic :: Security',
+        'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3.7',
         'Topic :: Security :: Cryptography'
     ],
     keywords=[

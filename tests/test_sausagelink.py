@@ -1,6 +1,6 @@
+import os
 import pytest
 from sausagelink import Sausage, Link
-import os
 
 @pytest.fixture
 def hot_dog():
@@ -58,7 +58,12 @@ def test_broken_pop(link_of_sausages):
 def test_link_dir(link_of_sausages):
     assert dir(link_of_sausages) == ['append', 'rancid', 'refrigerate']
 
-def test_link_rancid(link_of_sausages):
+def test_link_middle_rancid(link_of_sausages):
     assert not link_of_sausages.rancid()
     link_of_sausages[2].data = {'hot dog': 99, 'gyurma': 0, 'saucisson': 0}
-    assert link_of_sausages.rancid() == ['⎨2⎬']
+    assert link_of_sausages.rancid() == [link_of_sausages[2]]
+
+def test_link_end_rancid(link_of_sausages):
+    assert not link_of_sausages.rancid()
+    link_of_sausages[-1].data = 'bad'
+    assert link_of_sausages.rancid() == [link_of_sausages[4]]
